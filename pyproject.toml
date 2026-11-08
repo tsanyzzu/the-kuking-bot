@@ -8,17 +8,21 @@ authors = [
 ]
 requires-python = ">=3.11"
 dependencies = [
+    "aiogram>=3.17.0",
     "asyncpg>=0.32.0",
+    "fastapi>=0.115.0",
     "langchain-google-genai>=4.4.3",
     "langgraph>=1.2.20",
     "langgraph-checkpoint-postgres>=3.2.0",
-    "pydantic>=2.14.3",
+    "psycopg[binary]>=3.2.0",
+    "pydantic>=2.10.0,<2.14.0",
     "pydantic-settings>=2.16.2",
     "python-dotenv>=1.2.4",
+    "uvicorn[standard]>=0.34.0",
 ]
 
 [project.scripts]
-kuking = "kuking:main"
+kuking = "kuking.main:run"
 
 [build-system]
 requires = ["uv_build>=0.13.7,<0.14.0"]

@@ -1,0 +1,12 @@
+.venv
+.git
+.gitignore
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.env
+test_cli.py
+step-fase2-fase3.md
+.pytest_cache
+*.egg-info
