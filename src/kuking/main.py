@@ -15,6 +15,11 @@ from kuking.bot import router as bot_router
 
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    try:
+        import uvicorn.loops.asyncio
+        uvicorn.loops.asyncio.asyncio_loop_factory = lambda use_subprocess=False: asyncio.SelectorEventLoop
+    except ImportError:
+        pass
 
 logging.basicConfig(
     level=logging.INFO,
@@ -140,10 +145,12 @@ async def telegram_webhook(
 def run():
     """Fungsi pembantu untuk menjalankan server uvicorn."""
     import uvicorn
+    loop_param = "asyncio:SelectorEventLoop" if sys.platform == "win32" else "auto"
     uvicorn.run(
         "kuking.main:app",
         host=settings.HOST,
         port=settings.PORT,
+        loop=loop_param,
         reload=False
     )
 
