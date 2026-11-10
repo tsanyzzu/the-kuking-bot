@@ -1,6 +1,6 @@
 import os
 import sys
-os.environ["GRADIO_SERVER_PORT"] = "7861"
+
 os.environ["GRADIO_SSR_MODE"] = "false"
 sys.path.insert(0, os.path.abspath("src"))
 

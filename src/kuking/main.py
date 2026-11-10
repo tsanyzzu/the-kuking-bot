@@ -100,7 +100,6 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-@app.get("/")
 @app.get("/health")
 async def health_check():
     """Endpoint health check untuk Hugging Face Spaces & external keep-alive ping."""
