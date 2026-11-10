@@ -1,9 +1,9 @@
 import os
 import sys
+sys.path.insert(0, os.path.abspath("src"))
+
 import gradio as gr
 from kuking.main import app as fastapi_app
-
-sys.path.insert(0, os.path.abspath("src"))
 
 with gr.Blocks(title="Kuking status") as demo:
     gr.Markdown("## Kuking")
