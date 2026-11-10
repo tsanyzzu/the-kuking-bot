@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     SUPABASE_DB_URL: str
     TELEGRAM_BOT_TOKEN: Optional[str] = None
     WEBHOOK_URL: Optional[str] = None
-    WEBHOOK_SECRET: str REPLACED_SECRET
+    WEBHOOK_SECRET: str 
     WEBHOOK_PATH: str = "/webhook"
     HOST: str = "0.0.0.0"
     PORT: int = 7860
