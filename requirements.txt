@@ -1,0 +1,12 @@
+aiogram>=3.17.0                                                                                             
+fastapi>=0.115.0                                                                                            
+uvicorn[standard]>=0.34.0                                                                                   
+pydantic>=2.10.0,<2.14.0                                                                                    
+pydantic-settings>=2.16.2                                                                                   
+python-dotenv>=1.2.4                                                                                        
+langchain-google-genai>=4.4.3                                                                               
+langgraph>=1.2.20                                                                                           
+langgraph-checkpoint-postgres>=3.2.0                                                                        
+psycopg[binary]>=3.2.0                                                                                      
+asyncpg>=0.32.0                                                                                             
+gradio>=4.0.0
