@@ -11,7 +11,7 @@ with gr.Blocks(title="Kuking status") as demo:
     gr.Markdown("## Kuking")
     gr.Markdown("Asal bisa masak")
 
-app = gr.mount_gradio_app(fastapi_app, demo, path="/")
+app = gr.mount_gradio_app(fastapi_app, demo, path="/ui")
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=7860)

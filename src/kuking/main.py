@@ -49,16 +49,19 @@ async def lifespan(app: FastAPI):
 
         if settings.WEBHOOK_URL:
             webhook_full_url = f"{settings.WEBHOOK_URL.rstrip('/')}{settings.WEBHOOK_PATH}"
-            logger.info(f"Mendaftarkan webhook Telegram ke: {webhook_full_url}")
-            try:
-                await bot.set_webhook(
-                    url=webhook_full_url,
-                    secret_token=settings.WEBHOOK_SECRET,
-                    drop_pending_updates=True,
-                )
-                logger.info("Webhook Telegram berhasil didaftarkan.")
-            except Exception as e:
-                logger.error(f"Gagal mendaftarkan webhook ke Telegram: {e}")
+            async def register_webhook():
+                logger.info(f"Mendaftarkan webhook Telegram ke: {webhook_full_url}")
+                try:
+                    await bot.set_webhook(
+                        url=webhook_full_url,
+                        secret_token=settings.WEBHOOK_SECRET,
+                        drop_pending_updates=True,
+                    )
+                    logger.info("Webhook Telegram berhasil didaftarkan.")
+                except Exception as e:
+                    logger.error(f"Gagal mendaftarkan webhook ke Telegram: {e}")
+
+            asyncio.create_task(register_webhook())
         else:
             logger.info("WEBHOOK_URL tidak ditentukan. Pendaftaran webhook otomatis dilewati.")
 
@@ -74,9 +77,6 @@ async def lifespan(app: FastAPI):
     logger.info("Memulai proses graceful shutdown...")
     if bot:
         try:
-            if settings.WEBHOOK_URL:
-                logger.info("Menghapus webhook Telegram...")
-                await bot.delete_webhook()
             await bot.session.close()
             logger.info("Sesi bot Telegram ditutup.")
         except Exception as e:
@@ -100,6 +100,7 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+@app.get("/")
 @app.get("/health")
 async def health_check():
     """Endpoint health check untuk Hugging Face Spaces & external keep-alive ping."""
