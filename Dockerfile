@@ -14,17 +14,11 @@ ENV HOME=/home/user \
     PATH=/home/user/.local/bin:$PATH
 WORKDIR $HOME/app
 
-# Install depedencies pyproject.toml
+# Install depedencies pyproject.toml and source code
 COPY --chown=user:user pyproject.toml README.md ./
-RUN pip install --no-cache-dir --user .
-
 COPY --chown=user:user src/ ./src/
 
-EXPOSE 7860
-
-# Healthcheck container
-HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-    CMD curl -f http://localhost:7860/health || exit 1
+RUN pip install --no-cache-dir --user .
 
 # Run 
-CMD ["uvicorn", "kuking.main:app", "--host", "0.0.0.0", "--port", "7860"]
+CMD ["sh", "-c", "uvicorn kuking.main:app --host 0.0.0.0 --port ${PORT:-7860}"]

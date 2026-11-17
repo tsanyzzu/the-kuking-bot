@@ -18,9 +18,13 @@ class Settings(BaseSettings):
     @model_validator(mode="after")
     def resolve_webhook_url(self):
         if not self.WEBHOOK_URL:
-            space_host = os.environ.get("SPACE_HOST")
+            space_host = os.environ.get("SPACE_HOST") # hf space
             if space_host:
                 self.WEBHOOK_URL = f"https://{space_host}"
+
+            railway_domain = os.environ.get("RAILWAY_PUBLIC_DOMAIN") # railway 
+            if railway_domain:
+                self.WEBHOOK_URL = f"https://{railway_domain}"
         return self
 
 settings = Settings()
